@@ -25,7 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 .form-button {
-  padding-top: 20px;
+  padding-top: 30px;
   display: flex;
   justify-content: center;
 }
