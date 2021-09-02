@@ -26,7 +26,7 @@ export default defineComponent({
     const styles = computed(() => {
       if (props.option === '必須') {
         return {
-          backgroundColor: '#d13636',
+          backgroundColor: '#7E954E',
           color: '#fff',
         };
       } else {
