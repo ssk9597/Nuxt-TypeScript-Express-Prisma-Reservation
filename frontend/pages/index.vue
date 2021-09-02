@@ -1,24 +1,33 @@
 <template>
-  <div>
-    <h1>
-      {{ data }}
-    </h1>
+  <div class="reservation-container">
+    <Heading :content="'お客様の情報を入力してください'" />
+    <Form />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useAsync, useContext } from '@nuxtjs/composition-api';
-import axios from '@nuxtjs/axios';
+import { defineComponent } from '@nuxtjs/composition-api';
+
+// component
+import Heading from '../components/Atoms/Heading.vue';
+import Form from '../components/Template/Form.vue';
 
 export default defineComponent({
-  setup() {
-    const data = ref({});
-    const { $axios } = useContext();
-    useAsync(async () => {
-      const result = await $axios.$get('/api');
-      data.value = result;
-    });
-    return { data };
+  components: {
+    Heading,
+    Form,
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.reservation {
+  &-container {
+    width: 100%;
+    height: 100vh;
+    background: #f7f5ee;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+}
+</style>
