@@ -1,9 +1,17 @@
 <template>
   <div>
-    <h1>
-      {{ data }}
-    </h1>
     <FormLabel :title="'姓'" />
+    <FormInput :placeholder="'例: 田中'" :value="firstName" @input="firstName = $event" />
+    <FormLabel :title="'名'" />
+    <FormInput :placeholder="'例: 太郎'" :value="lastName" @input="lastName = $event" />
+    <FormLabel :title="'メールアドレス'" />
+    <FormInput
+      :type="'email'"
+      :placeholder="'例: taro-tanaka@example.com'"
+      :value="email"
+      @input="email = $event"
+    />
+    <FormButton :click="submit" @submit="submit()" />
   </div>
 </template>
 
@@ -12,20 +20,35 @@ import { defineComponent, ref, useAsync, useContext } from '@nuxtjs/composition-
 import axios from '@nuxtjs/axios';
 
 // component
-import FormLabel from '../components/Atoms/FormLabel';
+import FormLabel from '../components/Atoms/FormLabel.vue';
+import FormInput from '../components/Atoms/FormInput.vue';
+import FormButton from '../components/Atoms/FormButton.vue';
 
 export default defineComponent({
   components: {
     FormLabel,
+    FormInput,
+    FormButton,
   },
   setup() {
-    const data = ref({});
-    const { $axios } = useContext();
-    useAsync(async () => {
-      const result = await $axios.$get('/api');
-      data.value = result;
-    });
-    return { data };
+    const firstName = ref<string | undefined>();
+    const lastName = ref<string | undefined>();
+    const email = ref<string | undefined>();
+
+    const submit = () => {
+      console.log(firstName.value);
+      console.log(lastName.value);
+      console.log(email.value);
+    };
+
+    return {
+      // data
+      firstName,
+      lastName,
+      email,
+      // methods
+      submit,
+    };
   },
 });
 </script>
