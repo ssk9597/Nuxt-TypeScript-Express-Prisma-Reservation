@@ -10,12 +10,16 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from '@nuxtjs/composition-api';
+<script lang="ts">
+import { defineComponent, PropType } from '@nuxtjs/composition-api';
+
+// type
+import { Type } from './types/FormInput.type';
+
 export default defineComponent({
   props: {
     type: {
-      type: String,
+      type: String as PropType<Type>,
       default: 'text',
       validator: function(value) {
         return ['text', 'email', 'password'].indexOf(value) !== -1;
@@ -26,7 +30,8 @@ export default defineComponent({
       required: true,
     },
     value: {
-      type: String | undefined,
+      type: String,
+      default: '',
       required: true,
     },
   },

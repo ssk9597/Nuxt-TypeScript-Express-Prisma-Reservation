@@ -4,8 +4,13 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api';
+
+// type
+import { Props } from './types/FormButton.type';
+
+export default defineComponent({
   props: {
     click: {
       type: Function,
@@ -15,12 +20,16 @@ export default {
       type: Boolean,
     },
   },
-  methods: {
-    childClick() {
-      this.click();
-    },
+  setup(props: Props) {
+    const childClick = () => {
+      props.click();
+    };
+
+    return {
+      childClick,
+    };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
