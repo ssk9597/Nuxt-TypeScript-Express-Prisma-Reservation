@@ -15,9 +15,9 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  css: [],
+  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
 
-  plugins: [],
+  plugins: ['@/plugins/fontawesome'],
 
   components: true,
 
