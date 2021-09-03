@@ -5,8 +5,11 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, computed } from '@nuxtjs/composition-api';
+<script lang="ts">
+import { defineComponent, computed, PropType } from '@nuxtjs/composition-api';
+
+// type
+import { Option, Props } from './types/FormLabel.type';
 
 export default defineComponent({
   props: {
@@ -15,14 +18,14 @@ export default defineComponent({
       required: true,
     },
     option: {
-      type: String,
+      type: String as PropType<Option>,
       default: '必須',
       validator: function(value) {
         return ['必須', '任意'].indexOf(value) !== -1;
       },
     },
   },
-  setup(props) {
+  setup(props: Props) {
     const styles = computed(() => {
       if (props.option === '必須') {
         return {
