@@ -20,7 +20,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .heading {
   &-container {
-    padding-top: 80px;
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
   &-content {
     margin-left: 30px;

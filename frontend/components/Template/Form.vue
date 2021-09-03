@@ -61,7 +61,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .form {
-  padding: 30px 50px;
+  padding: 0px 50px 30px 50px;
   &-name-container {
     display: flex;
     align-items: center;
