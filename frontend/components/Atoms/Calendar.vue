@@ -132,7 +132,7 @@ export default defineComponent({
 
     const chooseDate = (date) => {
       window.location.href = 'http://localhost:3000';
-      localStorage.date = date;
+      sessionStorage.date = date;
     };
 
     return {

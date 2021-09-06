@@ -59,8 +59,8 @@ import moment from 'moment';
 export default defineComponent({
   setup() {
     onMounted(() => {
-      if (localStorage.date) {
-        date.value = localStorage.date;
+      if (sessionStorage.date) {
+        date.value = sessionStorage.date;
       }
     });
 
