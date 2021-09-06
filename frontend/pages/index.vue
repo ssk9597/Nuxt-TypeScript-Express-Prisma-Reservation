@@ -28,7 +28,6 @@ export default defineComponent({
 .reservation {
   &-container {
     width: 100%;
-    height: 100vh;
     background: #f7f5ee;
     max-width: 450px;
     margin: 0 auto;
