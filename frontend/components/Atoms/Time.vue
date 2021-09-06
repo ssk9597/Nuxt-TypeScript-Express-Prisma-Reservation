@@ -2,7 +2,7 @@
   <div class="time-wrapper">
     <!-- タイムピッカーヘッダ -->
     <div class="time-header">
-      <div class="time-header-left">
+      <div class="time-header-left" @click="prevSelectDate()">
         <span class="time-header-left-header-arrow">
           <fa icon="chevron-left" />
         </span>
@@ -72,11 +72,19 @@ export default defineComponent({
       return moment(date.value).format('YYYY年MM月DD日');
     });
 
+    // methods
+    const prevSelectDate = () => {
+      sessionStorage.date = '';
+      window.location.href = 'http://localhost:3000';
+    };
+
     return {
       // data
       date,
       // computed
       dateFormat,
+      // methods
+      prevSelectDate,
     };
   },
 });
