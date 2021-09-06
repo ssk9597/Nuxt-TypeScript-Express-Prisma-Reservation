@@ -131,7 +131,7 @@ export default defineComponent({
     };
 
     const chooseDate = (date) => {
-      console.log(date);
+      window.location.href = 'http://localhost:3000';
       localStorage.date = date;
     };
 
