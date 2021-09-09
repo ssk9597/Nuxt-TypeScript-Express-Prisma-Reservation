@@ -35,3 +35,7 @@
 #### fontawesome のインストール
 
 #### [コンポーネント] カレンダー
+
+### 3. Backend | DB に予約情報を書き込む
+
+#### UserController の修正
