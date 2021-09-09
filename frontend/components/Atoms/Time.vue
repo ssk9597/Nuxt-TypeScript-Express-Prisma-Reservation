@@ -33,16 +33,16 @@
         <tbody>
           <tr class="time-table-tr">
             <th class="time-table-th sticky">空き状況</th>
-            <td class="time-table-td">○</td>
-            <td class="time-table-td">×</td>
-            <td class="time-table-td">○</td>
-            <td class="time-table-td">×</td>
-            <td class="time-table-td">○</td>
-            <td class="time-table-td">×</td>
-            <td class="time-table-td">○</td>
-            <td class="time-table-td">×</td>
-            <td class="time-table-td">○</td>
-            <td class="time-table-td">×</td>
+            <td class="time-table-td" @click="chooseTime()">○</td>
+            <td class="time-table-td" @click="chooseTime()">×</td>
+            <td class="time-table-td" @click="chooseTime()">○</td>
+            <td class="time-table-td" @click="chooseTime()">×</td>
+            <td class="time-table-td" @click="chooseTime()">○</td>
+            <td class="time-table-td" @click="chooseTime()">×</td>
+            <td class="time-table-td" @click="chooseTime()">○</td>
+            <td class="time-table-td" @click="chooseTime()">×</td>
+            <td class="time-table-td" @click="chooseTime()">○</td>
+            <td class="time-table-td" @click="chooseTime()">×</td>
           </tr>
         </tbody>
       </table>
@@ -78,6 +78,11 @@ export default defineComponent({
       window.location.href = 'http://localhost:3000';
     };
 
+    const chooseTime = () => {
+      sessionStorage.time = '10:00';
+      window.location.href = 'http://localhost:3000';
+    };
+
     return {
       // data
       date,
@@ -85,6 +90,7 @@ export default defineComponent({
       dateFormat,
       // methods
       prevSelectDate,
+      chooseTime,
     };
   },
 });

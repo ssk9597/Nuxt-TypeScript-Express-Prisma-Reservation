@@ -45,6 +45,8 @@ export default defineComponent({
       console.log(firstName.value);
       console.log(lastName.value);
       console.log(email.value);
+      console.log(sessionStorage.date);
+      console.log(sessionStorage.time);
     };
 
     return {
