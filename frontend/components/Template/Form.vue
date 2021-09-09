@@ -45,6 +45,8 @@ export default defineComponent({
       console.log(firstName.value);
       console.log(lastName.value);
       console.log(email.value);
+      console.log(sessionStorage.date);
+      console.log(sessionStorage.time);
     };
 
     return {
@@ -61,7 +63,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .form {
-  padding: 30px 50px;
+  padding: 0px 50px 30px 50px;
   &-name-container {
     display: flex;
     align-items: center;
