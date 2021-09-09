@@ -79,7 +79,7 @@ export default defineComponent({
     };
 
     const chooseTime = () => {
-      sessionStorage.time = '10:00';
+      sessionStorage.time = '1000';
       window.location.href = 'http://localhost:3000';
     };
 
