@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+import { defineComponent, ref, useContext } from '@nuxtjs/composition-api';
 import axios from '@nuxtjs/axios';
 
 // component
@@ -37,14 +37,21 @@ export default defineComponent({
     FormButton,
   },
   setup() {
+    // axios
+    const { $axios } = useContext();
+
+    // data
     const firstName = ref<string | undefined>();
     const lastName = ref<string | undefined>();
     const email = ref<string | undefined>();
 
-    const submit = () => {
-      console.log(firstName.value);
-      console.log(lastName.value);
-      console.log(email.value);
+    const submit = async () => {
+      // window.location.href = 'http://localhost:3000';
+      await $axios.$post('/api/users/store', {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        email: email.value,
+      });
       console.log(sessionStorage.date);
       console.log(sessionStorage.time);
     };

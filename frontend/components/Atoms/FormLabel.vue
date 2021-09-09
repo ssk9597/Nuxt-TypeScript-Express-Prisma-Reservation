@@ -20,9 +20,6 @@ export default defineComponent({
     option: {
       type: String as PropType<Option>,
       default: '必須',
-      validator: function(value) {
-        return ['必須', '任意'].indexOf(value) !== -1;
-      },
     },
   },
   setup(props: Props) {

@@ -21,9 +21,6 @@ export default defineComponent({
     type: {
       type: String as PropType<Type>,
       default: 'text',
-      validator: function(value) {
-        return ['text', 'email', 'password'].indexOf(value) !== -1;
-      },
     },
     placeholder: {
       type: String,
