@@ -16,7 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "googleapis": "^85.0.0"
   },
   "devDependencies": {
     "@prisma/client": "^2.30.0",
