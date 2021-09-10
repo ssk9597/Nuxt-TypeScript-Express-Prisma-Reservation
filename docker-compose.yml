@@ -32,7 +32,7 @@ services:
     volumes:
       - $BACKEND_DIR:$BACKEND_WORK_DIR
     working_dir: $BACKEND_WORK_DIR
-    command: [sh, -c, npm install && npm run build && npm run start]
+    command: [sh, -c, npm install && npm run dev]
 
   # 【Frontend】Nuxt.js
   front:
