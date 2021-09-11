@@ -41,7 +41,7 @@
               { today: compareToday.yearMonthDay === day.yearMonthDay },
               { notClick: compareToday.yearMonthDay > day.yearMonthDay },
             ]"
-            @click="chooseDate(day.yearMonthDay)"
+            @click="chooseDate(day.googleCalendarDate)"
           >
             {{ day.day }}
           </td>
@@ -96,6 +96,7 @@ export default defineComponent({
             month: startDate.format('MM'),
             yearMonth: Number(startDate.format('YYYYMM')),
             yearMonthDay: Number(startDate.format('YYYYMMDD')),
+            googleCalendarDate: String(startDate.format('YYYY-MM-DD')),
           });
           startDate.add(1, 'days');
         }
@@ -114,6 +115,7 @@ export default defineComponent({
         yearMonthDay: Number(today.value.format('YYYYMMDD')),
       };
     });
+
     const compareCurrentDate = computed(() => {
       return {
         yearMonth: Number(currentDate.value.format('YYYYMM')),
@@ -131,6 +133,7 @@ export default defineComponent({
     };
 
     const chooseDate = (date) => {
+      console.log(date);
       window.location.href = 'http://localhost:3000';
       sessionStorage.date = date;
     };

@@ -46,13 +46,20 @@ export default defineComponent({
     const email = ref<string | undefined>();
 
     const submit = async () => {
+      const date = sessionStorage.date;
+      const time = sessionStorage.time;
+
+      sessionStorage.date = '';
+      sessionStorage.time = '';
+
       window.location.href = 'http://localhost:3000';
+
       await $axios.$post('/api/users/store', {
         firstName: firstName.value,
         lastName: lastName.value,
         email: email.value,
-        date: sessionStorage.date,
-        time: sessionStorage.time,
+        date: date,
+        time: time,
       });
     };
 

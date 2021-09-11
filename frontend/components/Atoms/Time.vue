@@ -75,11 +75,12 @@ export default defineComponent({
     // methods
     const prevSelectDate = () => {
       sessionStorage.date = '';
+      sessionStorage.time = '';
       window.location.href = 'http://localhost:3000';
     };
 
     const chooseTime = () => {
-      sessionStorage.time = '1000';
+      sessionStorage.time = '10:00:00';
       window.location.href = 'http://localhost:3000';
     };
 
