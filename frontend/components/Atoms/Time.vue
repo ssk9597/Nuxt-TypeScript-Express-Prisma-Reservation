@@ -75,6 +75,7 @@ export default defineComponent({
     // methods
     const prevSelectDate = () => {
       sessionStorage.date = '';
+      sessionStorage.time = '';
       window.location.href = 'http://localhost:3000';
     };
 
