@@ -26,20 +26,37 @@ router.post('/store', async (req: Request, res: Response) => {
   try {
     const { firstName, lastName, email, date, time } = req.body;
 
-    // 1. register_prisma
-    await prisma.user.create({
-      data: {
-        firstName: firstName,
-        lastName: lastName,
+    const user = await prisma.user.findUnique({
+      where: {
         email: email,
-        reservation: {
-          create: {
-            date: date,
-            time: time,
-          },
-        },
       },
     });
+
+    if (user) {
+      // 1. register_prisma
+      await prisma.reservation.create({
+        data: {
+          date: date,
+          time: time,
+          userId: user.id,
+        },
+      });
+    } else {
+      // 1. register_prisma
+      await prisma.user.create({
+        data: {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          reservation: {
+            create: {
+              date: date,
+              time: time,
+            },
+          },
+        },
+      });
+    }
 
     // 2. register_calendar
     // 必要なスコープの定義
