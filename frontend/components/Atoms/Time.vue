@@ -62,11 +62,9 @@ export default defineComponent({
       const sessionDate = sessionStorage.date;
       if (sessionDate) {
         reservations.value = await $axios.$get(`/api/reservations/${sessionDate}`);
-        console.log(reservations.value);
       } else {
         const todayFormat = today.value.format('YYYY-MM-DD');
         reservations.value = await $axios.$get(`/api/reservations/${todayFormat}`);
-        console.log(reservations.value);
       }
 
       reservations.value.forEach(reservation => {
