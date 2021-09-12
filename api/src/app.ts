@@ -4,6 +4,7 @@ import express from 'express';
 // controller_file
 import indexController from './controller/IndexController';
 import userController from './controller/UserController';
+import reservationController from './controller/ReservationController';
 
 // app
 const app = express();
@@ -19,5 +20,6 @@ app.use(cors());
 // routing
 app.use('/api', indexController);
 app.use('/api/users', userController);
+app.use('/api/reservations', reservationController);
 
 export default app;
