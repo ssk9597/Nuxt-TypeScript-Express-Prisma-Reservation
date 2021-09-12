@@ -83,11 +83,11 @@ router.post('/store', async (req: Request, res: Response) => {
       summary: `${firstName} ${lastName}のご予約`,
       description: `【お名前】 ${firstName} ${lastName}, \n【メールアドレス】 ${email}`,
       start: {
-        dateTime: `${date}T${time}+09:00`,
+        dateTime: `${date}T${time}:00+09:00`,
         timeZone: 'Asia/Tokyo',
       },
       end: {
-        dateTime: `${date}T${time}+09:00`,
+        dateTime: `${date}T${time}:00+09:00`,
         timeZone: 'Asia/Tokyo',
       },
     };
