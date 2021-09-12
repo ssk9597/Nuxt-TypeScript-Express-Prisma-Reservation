@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+import { defineComponent, ref, onMounted } from '@nuxtjs/composition-api';
 
 // components
 import Calendar from '../Atoms/Calendar.vue';
