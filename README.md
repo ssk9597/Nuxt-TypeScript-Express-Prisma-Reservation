@@ -41,3 +41,5 @@
 #### UserController の修正
 
 ### 4. Backend | Google カレンダーに予約情報を書き込む
+
+### 5. Frontend, Backend | Google カレンダーの予約情報をフロントエンドに表示する
