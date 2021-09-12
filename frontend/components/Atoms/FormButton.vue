@@ -5,15 +5,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, PropType } from '@nuxtjs/composition-api';
 
 // type
-import { Props } from './types/FormButton.type';
+import { Click, Props } from './types/FormButton.type';
 
 export default defineComponent({
   props: {
     click: {
-      type: Function,
+      type: Function as PropType<Click>,
       required: true,
     },
     invalid: {
