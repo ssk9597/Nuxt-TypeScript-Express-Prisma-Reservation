@@ -45,77 +45,55 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, useContext } from '@nuxtjs/composition-api';
-import axios from '@nuxtjs/axios';
+import { defineComponent, ref, computed, onMounted, PropType } from '@nuxtjs/composition-api';
 import moment from 'moment';
 
+// types
+import {
+  Reservations,
+  TimeTable,
+  ClickPrevSelectDate,
+  ClickChooseTime,
+  Props,
+} from './types/Time.type';
+
 export default defineComponent({
-  setup() {
-    // axios
-    const { $axios } = useContext();
-
-    onMounted(async () => {
-      if (sessionStorage.date) {
-        date.value = sessionStorage.date;
-      }
-
-      const sessionDate = sessionStorage.date;
-      if (sessionDate) {
-        reservations.value = await $axios.$get(`/api/reservations/${sessionDate}`);
-      } else {
-        const todayFormat = today.value.format('YYYY-MM-DD');
-        reservations.value = await $axios.$get(`/api/reservations/${todayFormat}`);
-      }
-
-      reservations.value.forEach(reservation => {
-        timeTable.value.forEach(time => {
-          if (reservation.time === time.clock) {
-            time.isEmpty = false;
-          }
-        });
-      });
-    });
-
-    // data
-    const date = ref<Date>();
-    const reservations = ref<string[]>();
-    const today = ref<any>(moment());
-    const timeTable = ref<string[]>([
-      { clock: '9:00', isEmpty: true },
-      { clock: '10:00', isEmpty: true },
-      { clock: '11:00', isEmpty: true },
-      { clock: '12:00', isEmpty: true },
-      { clock: '13:00', isEmpty: true },
-      { clock: '14:00', isEmpty: true },
-      { clock: '15:00', isEmpty: true },
-      { clock: '16:00', isEmpty: true },
-      { clock: '17:00', isEmpty: true },
-      { clock: '18:00', isEmpty: true },
-    ]);
-
+  props: {
+    date: {
+      type: String,
+    },
+    reservations: {
+      type: Array as PropType<Reservations>,
+    },
+    today: {
+      type: Object,
+    },
+    timeTable: {
+      type: Array as PropType<TimeTable>,
+    },
+    clickPrevSelectDate: {
+      type: Function as PropType<ClickPrevSelectDate>,
+    },
+    clickChooseTime: {
+      type: Function as PropType<ClickChooseTime>,
+    },
+  },
+  setup(props: Props) {
     // computed
     const dateFormat = computed(() => {
-      return moment(date.value).format('YYYY年MM月DD日');
+      return moment(props.date).format('YYYY年MM月DD日');
     });
 
     // methods
     const prevSelectDate = () => {
-      sessionStorage.date = '';
-      sessionStorage.time = '';
-      window.location.href = 'http://localhost:3000';
+      props.clickPrevSelectDate();
     };
 
     const chooseTime = time => {
-      sessionStorage.time = time;
-      window.location.href = 'http://localhost:3000';
+      props.clickChooseTime(time);
     };
 
     return {
-      // data
-      date,
-      reservations,
-      today,
-      timeTable,
       // computed
       dateFormat,
       // methods
