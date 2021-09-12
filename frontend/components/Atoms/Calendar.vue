@@ -52,25 +52,41 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@nuxtjs/composition-api';
+import { defineComponent, ref, computed, PropType } from '@nuxtjs/composition-api';
 import moment from 'moment';
 
-export default defineComponent({
-  setup() {
-    // data
-    const currentDate = ref<any>(moment());
-    const today = ref<any>(moment());
+// types
+import { ClickPrevMonth, ClickNextMonth, ClickChooseDate, Props } from './types/Calendar.type';
 
+export default defineComponent({
+  props: {
+    currentDate: {
+      type: Object,
+    },
+    today: {
+      type: Object,
+    },
+    clickPrevMonth: {
+      type: Function as PropType<ClickPrevMonth>,
+    },
+    clickNextMonth: {
+      type: Function as PropType<ClickNextMonth>,
+    },
+    clickChooseDate: {
+      type: Function as PropType<ClickChooseDate>,
+    },
+  },
+  setup(props: Props) {
     // computed
     const getStartDate = computed(() => {
-      let date = moment(currentDate.value);
+      let date = moment(props.currentDate);
       date.startOf('month');
       const dayOfWeek = date.day();
       return date.subtract(dayOfWeek, 'days');
     });
 
     const getEndDate = computed(() => {
-      let date = moment(currentDate.value);
+      let date = moment(props.currentDate);
       date.endOf('month');
       const dayOfWeek = date.day();
       return date.add(6 - dayOfWeek, 'days');
@@ -102,42 +118,37 @@ export default defineComponent({
     });
 
     const getYearMonthToday = computed(() => {
-      return currentDate.value.format('YYYY年MM月');
+      return moment(props.currentDate).format('YYYY年MM月');
     });
 
     const compareToday = computed(() => {
       return {
-        yearMonth: Number(today.value.format('YYYYMM')),
-        yearMonthDay: Number(today.value.format('YYYYMMDD')),
+        yearMonth: Number(moment(props.today).format('YYYYMM')),
+        yearMonthDay: Number(moment(props.today).format('YYYYMMDD')),
       };
     });
 
     const compareCurrentDate = computed(() => {
       return {
-        yearMonth: Number(currentDate.value.format('YYYYMM')),
-        yearMonthDay: Number(currentDate.value.format('YYYYMMDD')),
+        yearMonth: Number(moment(props.currentDate).format('YYYYMM')),
+        yearMonthDay: Number(moment(props.currentDate).format('YYYYMMDD')),
       };
     });
 
     // methods
     const prevMonth = () => {
-      currentDate.value = moment(currentDate.value).subtract(1, 'month');
+      props.clickPrevMonth();
     };
 
     const nextMonth = () => {
-      currentDate.value = moment(currentDate.value).add(1, 'month');
+      props.clickNextMonth();
     };
 
     const chooseDate = date => {
-      console.log(date);
-      window.location.href = 'http://localhost:3000';
-      sessionStorage.date = date;
+      props.clickChooseDate(date);
     };
 
     return {
-      // data
-      currentDate,
-      today,
       // computed
       getStartDate,
       getEndDate,
