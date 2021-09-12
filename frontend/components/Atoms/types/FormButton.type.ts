@@ -3,6 +3,6 @@ export type Click = {
 };
 
 export type Props = {
-  click: Function;
+  click: Click;
   invalid: boolean;
 };
