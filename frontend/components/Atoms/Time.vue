@@ -54,18 +54,34 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted, useContext } from '@nuxtjs/composition-api';
+import axios from '@nuxtjs/axios';
 import moment from 'moment';
 
 export default defineComponent({
   setup() {
+    // axios
+    const { $axios } = useContext();
+
     onMounted(async () => {
       if (sessionStorage.date) {
         date.value = sessionStorage.date;
+      }
+
+      const sessionDate = sessionStorage.date;
+      if (sessionDate) {
+        reservations.value = await $axios.$get(`/api/reservations/${sessionDate}`);
+        console.log(reservations.value);
+      } else {
+        const todayFormat = today.value.format('YYYY-MM-DD');
+        reservations.value = await $axios.$get(`/api/reservations/${todayFormat}`);
+        console.log(reservations.value);
       }
     });
 
     // data
     const date = ref<Date>();
+    const reservations = ref<string[]>();
+    const today = ref<any>(moment());
 
     // computed
     const dateFormat = computed(() => {
@@ -87,6 +103,8 @@ export default defineComponent({
     return {
       // data
       date,
+      reservations,
+      today,
       // computed
       dateFormat,
       // methods
