@@ -18,31 +18,23 @@
         <thead class="time-table-thead">
           <tr class="time-table-tr">
             <th class="time-table-th sticky"></th>
-            <th class="time-table-th">9:00</th>
-            <th class="time-table-th">10:00</th>
-            <th class="time-table-th">11:00</th>
-            <th class="time-table-th">12:00</th>
-            <th class="time-table-th">13:00</th>
-            <th class="time-table-th">14:00</th>
-            <th class="time-table-th">15:00</th>
-            <th class="time-table-th">16:00</th>
-            <th class="time-table-th">17:00</th>
-            <th class="time-table-th">18:00</th>
+            <th class="time-table-th" v-for="(time, index) in timeTable" :key="index">
+              {{ time.clock }}
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr class="time-table-tr">
             <th class="time-table-th sticky">空き状況</th>
-            <td class="time-table-td" @click="chooseTime()">○</td>
-            <td class="time-table-td" @click="chooseTime()">×</td>
-            <td class="time-table-td" @click="chooseTime()">○</td>
-            <td class="time-table-td" @click="chooseTime()">×</td>
-            <td class="time-table-td" @click="chooseTime()">○</td>
-            <td class="time-table-td" @click="chooseTime()">×</td>
-            <td class="time-table-td" @click="chooseTime()">○</td>
-            <td class="time-table-td" @click="chooseTime()">×</td>
-            <td class="time-table-td" @click="chooseTime()">○</td>
-            <td class="time-table-td" @click="chooseTime()">×</td>
+            <td
+              class="time-table-td"
+              v-for="(time, index) in timeTable"
+              :key="index"
+              @click="chooseTime(time.clock)"
+            >
+              <span v-if="time.isEmpty">○</span>
+              <span v-else>×</span>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -76,12 +68,32 @@ export default defineComponent({
         reservations.value = await $axios.$get(`/api/reservations/${todayFormat}`);
         console.log(reservations.value);
       }
+
+      reservations.value.forEach(reservation => {
+        timeTable.value.forEach(time => {
+          if (reservation.time === time.clock) {
+            time.isEmpty = false;
+          }
+        });
+      });
     });
 
     // data
     const date = ref<Date>();
     const reservations = ref<string[]>();
     const today = ref<any>(moment());
+    const timeTable = ref<string[]>([
+      { clock: '9:00', isEmpty: true },
+      { clock: '10:00', isEmpty: true },
+      { clock: '11:00', isEmpty: true },
+      { clock: '12:00', isEmpty: true },
+      { clock: '13:00', isEmpty: true },
+      { clock: '14:00', isEmpty: true },
+      { clock: '15:00', isEmpty: true },
+      { clock: '16:00', isEmpty: true },
+      { clock: '17:00', isEmpty: true },
+      { clock: '18:00', isEmpty: true },
+    ]);
 
     // computed
     const dateFormat = computed(() => {
@@ -95,8 +107,8 @@ export default defineComponent({
       window.location.href = 'http://localhost:3000';
     };
 
-    const chooseTime = () => {
-      sessionStorage.time = '10:00';
+    const chooseTime = time => {
+      sessionStorage.time = time;
       window.location.href = 'http://localhost:3000';
     };
 
@@ -105,6 +117,7 @@ export default defineComponent({
       date,
       reservations,
       today,
+      timeTable,
       // computed
       dateFormat,
       // methods
