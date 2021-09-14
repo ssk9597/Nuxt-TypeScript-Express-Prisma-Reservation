@@ -40,7 +40,6 @@
       </table>
     </div>
     <p class="supplement">※横にスクロールしてください</p>
-    <p class="supplement">※数字はその時間にあと何名予約できるかを表しています</p>
   </div>
 </template>
 
@@ -89,7 +88,7 @@ export default defineComponent({
       props.clickPrevSelectDate();
     };
 
-    const chooseTime = time => {
+    const chooseTime = (time) => {
       props.clickChooseTime(time);
     };
 
