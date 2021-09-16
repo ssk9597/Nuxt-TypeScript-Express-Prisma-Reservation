@@ -21,14 +21,14 @@ export const listEvent = async (date: string, jwt: Auth.JWT) => {
     timeZone: 'Asia/Tokyo',
   });
 
-  const results = calendars?.data.items;
+  const results: calendar_v3.Schema$Event[] | undefined = calendars?.data.items;
 
   const events: Events = [];
 
-  results?.forEach((result) => {
+  results?.forEach((result: calendar_v3.Schema$Event | undefined) => {
     events.push({
-      date: result.start?.dateTime?.substr(0, 10),
-      time: result.start?.dateTime?.substr(11, 5),
+      date: result?.start?.dateTime?.substr(0, 10),
+      time: result?.start?.dateTime?.substr(11, 5),
     });
   });
 
