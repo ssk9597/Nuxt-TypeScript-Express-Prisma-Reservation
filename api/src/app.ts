@@ -2,8 +2,8 @@
 import express from 'express';
 
 // controller_file
-import userController from './controller/UserController';
-import reservationController from './controller/ReservationController';
+import userController from './controllers/UserController';
+import reservationController from './controllers/ReservationController';
 
 // app
 const app = express();
