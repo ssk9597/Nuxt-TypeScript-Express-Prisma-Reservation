@@ -11,16 +11,6 @@ const router = Router();
 import { google, Auth, calendar_v3 } from 'googleapis';
 import credentials from '../credentials/credentials.json';
 
-// GET /api/users
-// router.get('/', async (req: Request, res: Response) => {
-//   const users = await prisma.user.findMany({
-//     include: {
-//       reservation: true,
-//     },
-//   });
-//   res.status(200).json({ users });
-// });
-
 // POST /api/users/store
 router.post('/store', async (req: Request, res: Response) => {
   try {
