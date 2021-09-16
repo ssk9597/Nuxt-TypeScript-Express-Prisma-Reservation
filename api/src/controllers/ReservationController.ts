@@ -1,9 +1,4 @@
 import { Router, Request, Response } from 'express';
-
-// dotenv
-import dotenv from 'dotenv';
-dotenv.config();
-
 const router = Router();
 
 // models
