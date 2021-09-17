@@ -1,5 +1,4 @@
 // helpers
-// google
 import { jwtClient } from '../helpers/google/jwtClient';
 import { listEvent } from '../helpers/google/listEvent';
 
