@@ -1,9 +1,8 @@
+// repositories
+import userRepository from '../repositories/user.repository';
+import reservationRepository from '../repositories/reservation.repository';
+
 // helpers
-// prisma
-import { findUser } from '../helpers/prisma/findUser';
-import { registerReservation } from '../helpers/prisma/registerReservation';
-import { registerUserReservation } from '../helpers/prisma/registerUserReservation';
-// google
 import { jwtClient } from '../helpers/google/jwtClient';
 import { insertEvent } from '../helpers/google/insertEvent';
 
@@ -11,14 +10,14 @@ const users = {
   async store(firstName: string, lastName: string, email: string, date: string, time: string) {
     try {
       // メールアドレスが一致するユーザーを取り出す
-      const user = await findUser(email);
+      const user = await userRepository.findUser(email);
 
       if (user) {
         // 予約情報を登録する
-        await registerReservation(date, time, user.id);
+        await reservationRepository.registerReservation(date, time, user.id);
       } else {
         // ユーザーと予約情報を登録する
-        await registerUserReservation(firstName, lastName, email, date, time);
+        await userRepository.registerUserReservation(firstName, lastName, email, date, time);
       }
 
       // 必要なスコープの定義
