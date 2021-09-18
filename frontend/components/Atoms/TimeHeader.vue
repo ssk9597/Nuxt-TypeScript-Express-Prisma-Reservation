@@ -14,13 +14,16 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api';
 
+// types
+import { ClickChildPrevSelectDate } from './types/TimeHeader.type';
+
 export default defineComponent({
   props: {
     dateFormat: {
       type: String,
     },
     clickChildPrevSelectDate: {
-      type: Function,
+      type: Function as PropType<ClickChildPrevSelectDate>,
     },
   },
   setup(props) {
