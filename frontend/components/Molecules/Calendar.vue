@@ -1,22 +1,15 @@
 <template>
   <div>
     <!-- カレンダーヘッダー -->
-    <div class="calendar-header">
-      <div
-        class="calendar-header-left"
-        v-if="compareToday.yearMonth < compareCurrentDate.yearMonth"
-        @click="prevMonth()"
-      >
-        <span><fa icon="chevron-left" area-hidden="true" /></span>
-        <p class="calendar-header-left-text">前月</p>
-      </div>
-      <div class="calendar-header-left empty" v-else></div>
-      <p class="calendar-header-center">{{ getYearMonthToday }}</p>
-      <div class="calendar-header-right" @click="nextMonth()">
-        <p class="calendar-header-right-text">翌月</p>
-        <span><fa icon="chevron-right" area-hidden="true" /></span>
-      </div>
-    </div>
+    <CalendarHeader
+      :compareToday="compareToday"
+      :compareCurrentDate="compareCurrentDate"
+      :getYearMonthToday="getYearMonthToday"
+      :clickChildPrevMonth="childPrevMonth"
+      @childPrevMonth="childPrevMonth"
+      :clickChildNextMonth="childNextMonth"
+      @childNextMonth="childNextMonth"
+    />
     <!-- カレンダーテーブル -->
     <table class="calendar-table">
       <thead class="calendar-table">
@@ -55,10 +48,16 @@
 import { defineComponent, ref, computed, PropType } from '@nuxtjs/composition-api';
 import moment from 'moment';
 
+// components
+import CalendarHeader from '../Atoms/CalendarHeader.vue';
+
 // types
 import { ClickPrevMonth, ClickNextMonth, ClickChooseDate, Props } from './types/Calendar.type';
 
 export default defineComponent({
+  components: {
+    CalendarHeader,
+  },
   props: {
     currentDate: {
       type: Object,
@@ -136,11 +135,11 @@ export default defineComponent({
     });
 
     // methods
-    const prevMonth = () => {
+    const childPrevMonth = () => {
       props.clickPrevMonth();
     };
 
-    const nextMonth = () => {
+    const childNextMonth = () => {
       props.clickNextMonth();
     };
 
@@ -157,8 +156,8 @@ export default defineComponent({
       compareToday,
       compareCurrentDate,
       // methods
-      prevMonth,
-      nextMonth,
+      childPrevMonth,
+      childNextMonth,
       chooseDate,
     };
   },
