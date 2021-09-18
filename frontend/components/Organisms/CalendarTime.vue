@@ -31,7 +31,7 @@ import moment from 'moment';
 
 // components
 import Calendar from '../Molecules/Calendar.vue';
-import Time from '../Atoms/Time.vue';
+import Time from '../Molecules/Time.vue';
 
 export default defineComponent({
   components: {
