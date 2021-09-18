@@ -11,36 +11,13 @@
       @childNextMonth="childNextMonth"
     />
     <!-- カレンダーテーブル -->
-    <table class="calendar-table">
-      <thead class="calendar-table">
-        <tr class="calendar-table-tr">
-          <th class="calendar-table-tr-th">日</th>
-          <th class="calendar-table-tr-th">月</th>
-          <th class="calendar-table-tr-th">火</th>
-          <th class="calendar-table-tr-th">水</th>
-          <th class="calendar-table-tr-th">木</th>
-          <th class="calendar-table-tr-th">金</th>
-          <th class="calendar-table-tr-th">土</th>
-        </tr>
-      </thead>
-      <tbody class="calendar-table">
-        <tr class="calendar-table-tr" v-for="(week, index) in getCalendar" :key="index">
-          <td
-            class="calendar-table-tr-td"
-            v-for="(day, index) in week"
-            :key="index"
-            :class="[
-              { outside: compareCurrentDate.yearMonth !== day.yearMonth },
-              { today: compareToday.yearMonthDay === day.yearMonthDay },
-              { notClick: compareToday.yearMonthDay > day.yearMonthDay },
-            ]"
-            @click="chooseDate(day.googleCalendarDate)"
-          >
-            {{ day.day }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <CalendarTable
+      :getCalendar="getCalendar"
+      :compareCurrentDate="compareCurrentDate"
+      :compareToday="compareToday"
+      :clickChildChooseDate="childChooseDate"
+      @childChooseDate="childChooseDate"
+    />
   </div>
 </template>
 
@@ -50,6 +27,7 @@ import moment from 'moment';
 
 // components
 import CalendarHeader from '../Atoms/CalendarHeader.vue';
+import CalendarTable from '../Atoms/CalendarTable.vue';
 
 // types
 import { ClickPrevMonth, ClickNextMonth, ClickChooseDate, Props } from './types/Calendar.type';
@@ -57,6 +35,7 @@ import { ClickPrevMonth, ClickNextMonth, ClickChooseDate, Props } from './types/
 export default defineComponent({
   components: {
     CalendarHeader,
+    CalendarTable,
   },
   props: {
     currentDate: {
@@ -143,7 +122,7 @@ export default defineComponent({
       props.clickNextMonth();
     };
 
-    const chooseDate = (date) => {
+    const childChooseDate = (date) => {
       props.clickChooseDate(date);
     };
 
@@ -158,119 +137,8 @@ export default defineComponent({
       // methods
       childPrevMonth,
       childNextMonth,
-      chooseDate,
+      childChooseDate,
     };
   },
 });
 </script>
-
-<style lang="scss" scoped>
-// カレンダーヘッダー
-.calendar-header {
-  padding: 10px;
-  height: 50px;
-  width: 100%;
-  max-width: 350px;
-  background: #89535a;
-  color: #fff;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 0 auto;
-
-  &-left {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-
-    &.empty {
-      width: 44px;
-    }
-
-    &-text {
-      margin-left: 6px;
-      font-size: 0.875rem;
-    }
-  }
-
-  &-center {
-    font-weight: bold;
-  }
-
-  &-right {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-
-    &-text {
-      margin-right: 6px;
-      font-size: 0.875rem;
-    }
-  }
-}
-// カレンダーテーブル
-.calendar-table {
-  width: 100%;
-  max-width: 350px;
-  margin: 0 auto;
-  border: 1px solid #ddd;
-  border-right-width: 0;
-  text-align: center;
-
-  &-tr {
-    display: flex;
-    &:last-child {
-      &-th,
-      &-td {
-        border-bottom-width: 0;
-      }
-    }
-
-    &-th {
-      flex: 1;
-      height: 50px;
-      font-size: 0.75rem;
-      background-color: #efefef;
-      border-bottom: 1px solid #ddd;
-      border-right: 1px solid #ddd;
-      font-weight: bold;
-      line-height: 50px;
-
-      &:first-child {
-        color: #ff4136;
-      }
-      &:last-child {
-        color: #0074d9;
-      }
-    }
-
-    &-td {
-      flex: 1;
-      height: 50px;
-      font-size: 0.75rem;
-      border-bottom: 1px solid #ddd;
-      border-right: 1px solid #ddd;
-      font-weight: bold;
-      line-height: 50px;
-      cursor: pointer;
-    }
-  }
-}
-
-.outside {
-  background-color: #ddd;
-  color: rgba(0, 1, 17, 0.2);
-}
-
-.today {
-  background: #89535a;
-  border-radius: 50%;
-  color: #fff;
-  font-weight: bold;
-}
-
-.notClick {
-  color: rgba(0, 1, 17, 0.05);
-  pointer-events: none;
-}
-</style>

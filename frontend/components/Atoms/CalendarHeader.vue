@@ -63,7 +63,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .calendar-header {
   padding: 10px;
   height: 50px;
