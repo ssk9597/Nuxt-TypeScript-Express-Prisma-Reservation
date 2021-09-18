@@ -30,7 +30,7 @@ import axios from '@nuxtjs/axios';
 import moment from 'moment';
 
 // components
-import Calendar from '../Atoms/Calendar.vue';
+import Calendar from '../Molecules/Calendar.vue';
 import Time from '../Atoms/Time.vue';
 
 export default defineComponent({
@@ -56,8 +56,8 @@ export default defineComponent({
         reservations.value = await $axios.$get(`/api/reservations/${todayFormat}`);
       }
 
-      reservations.value.forEach(reservation => {
-        timeTable.value.forEach(time => {
+      reservations.value.forEach((reservation) => {
+        timeTable.value.forEach((time) => {
           if (reservation.time === time.clock) {
             time.isEmpty = false;
           }
@@ -92,7 +92,7 @@ export default defineComponent({
       currentDate.value = moment(currentDate.value).add(1, 'month');
     };
 
-    const chooseDate = date => {
+    const chooseDate = (date) => {
       window.location.href = 'http://localhost:3000';
       sessionStorage.date = date;
     };
@@ -103,7 +103,7 @@ export default defineComponent({
       window.location.href = 'http://localhost:3000';
     };
 
-    const chooseTime = time => {
+    const chooseTime = (time) => {
       sessionStorage.time = time;
       window.location.href = 'http://localhost:3000';
     };

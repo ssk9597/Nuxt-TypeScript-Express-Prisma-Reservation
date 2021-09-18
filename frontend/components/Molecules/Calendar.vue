@@ -7,14 +7,14 @@
         v-if="compareToday.yearMonth < compareCurrentDate.yearMonth"
         @click="prevMonth()"
       >
-        <span><fa icon="chevron-left" area-hidden="true"/></span>
+        <span><fa icon="chevron-left" area-hidden="true" /></span>
         <p class="calendar-header-left-text">前月</p>
       </div>
       <div class="calendar-header-left empty" v-else></div>
       <p class="calendar-header-center">{{ getYearMonthToday }}</p>
       <div class="calendar-header-right" @click="nextMonth()">
         <p class="calendar-header-right-text">翌月</p>
-        <span><fa icon="chevron-right" area-hidden="true"/></span>
+        <span><fa icon="chevron-right" area-hidden="true" /></span>
       </div>
     </div>
     <!-- カレンダーテーブル -->
@@ -144,7 +144,7 @@ export default defineComponent({
       props.clickNextMonth();
     };
 
-    const chooseDate = date => {
+    const chooseDate = (date) => {
       props.clickChooseDate(date);
     };
 
