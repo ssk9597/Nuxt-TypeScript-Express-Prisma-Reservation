@@ -1,16 +1,11 @@
 <template>
   <div class="time-wrapper">
     <!-- タイムピッカーヘッダ -->
-    <div class="time-header">
-      <div class="time-header-left" @click="prevSelectDate()">
-        <span class="time-header-left-header-arrow">
-          <fa icon="chevron-left" />
-        </span>
-        <p class="time-header-left-text">日付選択</p>
-      </div>
-      <p class="time-header-middle">{{ dateFormat }}</p>
-      <div class="time-header-right"></div>
-    </div>
+    <TimeHeader
+      :dateFormat="dateFormat"
+      :clickChildPrevSelectDate="childPrevSelectDate"
+      @childPrevSelectDate="childPrevSelectDate"
+    />
 
     <!-- タイムピッカー -->
     <div class="time-table-header">
@@ -47,6 +42,9 @@
 import { defineComponent, ref, computed, onMounted, PropType } from '@nuxtjs/composition-api';
 import moment from 'moment';
 
+// components
+import TimeHeader from '../Atoms/TimeHeader.vue';
+
 // types
 import {
   Reservations,
@@ -57,6 +55,9 @@ import {
 } from './types/Time.type';
 
 export default defineComponent({
+  components: {
+    TimeHeader,
+  },
   props: {
     date: {
       type: String,
@@ -84,7 +85,7 @@ export default defineComponent({
     });
 
     // methods
-    const prevSelectDate = () => {
+    const childPrevSelectDate = () => {
       props.clickPrevSelectDate();
     };
 
@@ -96,7 +97,7 @@ export default defineComponent({
       // computed
       dateFormat,
       // methods
-      prevSelectDate,
+      childPrevSelectDate,
       chooseTime,
     };
   },
@@ -110,37 +111,6 @@ export default defineComponent({
   max-width: 450px;
   margin: 0 auto;
   text-align: center;
-}
-
-// タイムピッカーヘッダー
-.time-header {
-  padding: 10px;
-  height: 50px;
-  background: #89535a;
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  &-left {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    width: 50px;
-
-    &-text {
-      margin-left: 6px;
-      font-size: 0.875rem;
-    }
-  }
-
-  &-middle {
-    font-weight: bold;
-  }
-
-  &-right {
-    width: 50px;
-  }
 }
 
 // タイムピッカーテーブル
