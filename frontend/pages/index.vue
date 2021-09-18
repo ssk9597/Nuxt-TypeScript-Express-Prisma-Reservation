@@ -1,7 +1,7 @@
 <template>
   <div class="reservation-container">
     <Heading :content="'ご希望の日時をお選びください'" />
-    <Calendar />
+    <CalendarTime />
     <Heading :content="'お客様の情報を入力してください'" />
     <Form />
   </div>
@@ -13,13 +13,13 @@ import { defineComponent } from '@nuxtjs/composition-api';
 // component
 import Heading from '../components/Atoms/Heading.vue';
 import Form from '../components/Organisms/Form.vue';
-import Calendar from '../components/Organisms/Calendar.vue';
+import CalendarTime from '../components/Organisms/CalendarTime.vue';
 
 export default defineComponent({
   components: {
     Heading,
     Form,
-    Calendar,
+    CalendarTime,
   },
 });
 </script>
