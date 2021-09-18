@@ -6,34 +6,12 @@
       :clickChildPrevSelectDate="childPrevSelectDate"
       @childPrevSelectDate="childPrevSelectDate"
     />
-
     <!-- タイムピッカー -->
-    <div class="time-table-header">
-      <table class="time-table">
-        <thead class="time-table-thead">
-          <tr class="time-table-tr">
-            <th class="time-table-th sticky"></th>
-            <th class="time-table-th" v-for="(time, index) in timeTable" :key="index">
-              {{ time.clock }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="time-table-tr">
-            <th class="time-table-th sticky">空き状況</th>
-            <td
-              class="time-table-td"
-              v-for="(time, index) in timeTable"
-              :key="index"
-              @click="chooseTime(time.clock)"
-            >
-              <span v-if="time.isEmpty">○</span>
-              <span v-else>×</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <TimePicker
+      :timeTable="timeTable"
+      :clickChildChooseTime="childChooseTime"
+      @childChooseTime="childChooseTime"
+    />
     <p class="supplement">※横にスクロールしてください</p>
   </div>
 </template>
@@ -44,6 +22,7 @@ import moment from 'moment';
 
 // components
 import TimeHeader from '../Atoms/TimeHeader.vue';
+import TimePicker from '../Atoms/TimePicker.vue';
 
 // types
 import {
@@ -57,6 +36,7 @@ import {
 export default defineComponent({
   components: {
     TimeHeader,
+    TimePicker,
   },
   props: {
     date: {
@@ -89,7 +69,7 @@ export default defineComponent({
       props.clickPrevSelectDate();
     };
 
-    const chooseTime = (time) => {
+    const childChooseTime = (time) => {
       props.clickChooseTime(time);
     };
 
@@ -98,7 +78,7 @@ export default defineComponent({
       dateFormat,
       // methods
       childPrevSelectDate,
-      chooseTime,
+      childChooseTime,
     };
   },
 });
@@ -111,51 +91,6 @@ export default defineComponent({
   max-width: 450px;
   margin: 0 auto;
   text-align: center;
-}
-
-// タイムピッカーテーブル
-.time-table-header {
-  border: 1px solid #ddd;
-  border-right-width: 0;
-  overflow-x: auto;
-
-  & .time-table {
-    width: 100%;
-    text-align: center;
-
-    &-tr {
-      &:last-child {
-        & th,
-        & td {
-          border-bottom-width: 0;
-        }
-      }
-    }
-
-    &-th {
-      min-width: 50px;
-      height: 50px;
-      font-size: 0.75rem;
-      background-color: #efefef;
-      border-bottom: 1px solid #ddd;
-      border-right: 1px solid #ddd;
-      font-weight: bold;
-      vertical-align: middle;
-      white-space: nowrap;
-
-      &.sticky {
-        position: sticky;
-        left: 0;
-      }
-    }
-
-    &-td {
-      border-bottom: 1px solid #ddd;
-      border-right: 1px solid #ddd;
-      vertical-align: middle;
-      white-space: nowrap;
-    }
-  }
 }
 
 .supplement {
