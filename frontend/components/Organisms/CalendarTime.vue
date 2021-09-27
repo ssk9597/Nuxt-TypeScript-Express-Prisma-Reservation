@@ -93,19 +93,19 @@ export default defineComponent({
     };
 
     const chooseDate = (date) => {
-      window.location.href = 'http://localhost:3000';
+      window.location.href = process.env.TOP_PAGE_URL;
       sessionStorage.date = date;
     };
 
     const prevSelectDate = () => {
       sessionStorage.date = '';
       sessionStorage.time = '';
-      window.location.href = 'http://localhost:3000';
+      window.location.href = process.env.TOP_PAGE_URL;
     };
 
     const chooseTime = (time) => {
       sessionStorage.time = time;
-      window.location.href = 'http://localhost:3000';
+      window.location.href = process.env.TOP_PAGE_URL;
     };
 
     return {

@@ -52,7 +52,7 @@ export default defineComponent({
       sessionStorage.date = '';
       sessionStorage.time = '';
 
-      window.location.href = 'http://localhost:3000';
+      window.location.href = process.env.TOP_PAGE_URL;
 
       await $axios.$post('/api/users/store', {
         firstName: firstName.value,
